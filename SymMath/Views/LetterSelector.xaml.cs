@@ -1,10 +1,13 @@
-﻿using SymMath.Keyboard;
+﻿using SymMath.Core.Services;
+using SymMath.Keyboard;
+using SymMath.Parsers;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using static SymMath.Core.Services.CharectersService;
 
 namespace SymMath
 {
@@ -105,6 +108,7 @@ namespace SymMath
         }
 
         public readonly Key Key;
+        private LogicKey LogicalKey => LogicToPhysicalKeysParser.Convert(this.Key);
 
         public char SelectedLetter => _textBoxes[_activeIndex].Text[0];
 
@@ -139,8 +143,17 @@ namespace SymMath
             SelectTextBox(index);
         }
 
+        public void SelectPrevious()
+        {
+            var count = _textBoxes.Length;
+            var index = (count + _activeIndex - 1) % count;
+            SelectTextBox(index);
+        }
+
         private void SelectTextBox(int index)
         {
+            CharectersService.OnCharSelected(LogicalKey, index);
+            
             _activeIndex = index;
 
             var txtBox = _textBoxes[_activeIndex];
@@ -148,17 +161,12 @@ namespace SymMath
             SetAnimation(txtBox);
         }
 
-        public void SelectPrevious()
-        {
-            var count = _textBoxes.Length;
-            var index = (count + _activeIndex - 1) % count;
-            SelectTextBox(index);
-        }
-        
+
         private void OnMouseUp(Object sender, MouseButtonEventArgs e)
         {
             var textBox = e.Source as TextBox;
             if (textBox == null) return;
+
             _activeIndex = Array.IndexOf(_textBoxes, textBox);
             textBox.Focus();
             Handler.HandleMouseUp();

@@ -2,6 +2,7 @@
  * © Marcus van Houdt 2014
  */
 
+using SymMath.Core.Services;
 using SymMath.Parsers;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ namespace SymMath
         {
             KeyToWindowMap = new Dictionary<Key, LetterSelector>();
 
-            foreach (var kvp in Core.Const.LetterMappings.KeysMap)
+            foreach (var kvp in CharectersService.KeysMap)
             {
                 if (kvp.Value.Item1.Length > 0)
                 {
-                    var key = LogicToPhysicalKeysConverter.Convert(kvp.Key);
+                    var key = LogicToPhysicalKeysParser.Convert(kvp.Key);
                     KeyToWindowMap.Add(key, new LetterSelector(key, kvp.Value)); ;
                 }
             }

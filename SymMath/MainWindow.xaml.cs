@@ -4,21 +4,22 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using SymMath.Core.Services;
+using MvvmCross.Wpf.Views;
 
 namespace SymMath
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MvxWpfView
     {
         public static LetterSelector Selector;
 
         public MainWindow()
         {
             this.Visibility = System.Windows.Visibility.Hidden;
-            this.ShowInTaskbar = false;
-
+            
             InitializeComponent();
 
             // Hook keyboard events.
@@ -27,8 +28,8 @@ namespace SymMath
             LetterMappings.InitializeWindowsAndBindings();
 
             // Register keys.
-            foreach (var letter in Core.Const.LetterMappings.KeysMap.Keys)
-                LowLevelListener.HookedKeys.Add(LogicToPhysicalKeysConverter.Convert(letter));
+            foreach (var letter in CharectersService.KeysMap.Keys)
+                LowLevelListener.HookedKeys.Add(LogicToPhysicalKeysParser.Convert(letter));
 
             // Hook left, right arrow keys to move the selector.
             LowLevelListener.HookedKeys.Add(Key.Left);
