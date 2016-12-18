@@ -10,8 +10,8 @@ namespace SymMath
 {
     public partial class LetterSelector : Window
     {
-        private readonly TextBox[] _mTextBoxes;
-        private Tuple<Char[], Char[]> _mLetters;
+        private readonly TextBox[] _textBoxes;
+        private Tuple<Char[], Char[]> _letters;
 
         public readonly Boolean IsEmpty;
 
@@ -26,10 +26,10 @@ namespace SymMath
             var letterTemplate = Utils.CloneWPFObject(this.LetterPanel.Children.Cast<TextBox>().First());
             var width = 0.0;
 
-            // Remove sample children.
+            // Remove sample children.  
             this.LetterPanel.Children.Clear();
 
-            _mTextBoxes = new TextBox[letters.Item1.Length];
+            _textBoxes = new TextBox[letters.Item1.Length];
 
             // Add letters in order of appearance.
             for (var i = 0; i < letters.Item1.Length; i++)
@@ -58,15 +58,15 @@ namespace SymMath
 
                 this.LetterPanel.Children.Add(newLetter);
 
-                _mTextBoxes[i] = newLetter;
+                _textBoxes[i] = newLetter;
                 width += newLetter.Width;
             }
 
-            this._mLetters = letters;
+            this._letters = letters;
 
             // Restrict window size to panel width.
-            this.Width = width;
-            this.Height = letterTemplate.Height;
+            this.Width = width + LetterPanel.Margin.Left * 2;
+
             this.Key = key;
 
             this.Loaded += (_, __) => SelectNext();
@@ -106,75 +106,60 @@ namespace SymMath
 
         public readonly Key Key;
 
-        public char SelectedLetter
-        {
-            get
-            {
-                return _mTextBoxes[_mActiveIndex].Text[0];
-            }
-        }
+        public char SelectedLetter => _textBoxes[_activeIndex].Text[0];
 
-        private Boolean _mIsLowerCase = true;
+        private Boolean _isLowerCase = true;
 
         public void ToUpper()
         {
-            if (!_mIsLowerCase) return;
+            if (!_isLowerCase) return;
 
-            for (var i = 0; i < _mTextBoxes.Length; i++)
-                _mTextBoxes[i].Text = _mLetters.Item2[i].ToString();
+            for (var i = 0; i < _textBoxes.Length; i++)
+                _textBoxes[i].Text = _letters.Item2[i].ToString();
 
-            _mIsLowerCase = false;
+            _isLowerCase = false;
         }
 
         public void ToLower()
         {
-            if (_mIsLowerCase) return;
+            if (_isLowerCase) return;
 
-            for (var i = 0; i < _mTextBoxes.Length; i++)
-                _mTextBoxes[i].Text = _mLetters.Item1[i].ToString();
+            for (var i = 0; i < _textBoxes.Length; i++)
+                _textBoxes[i].Text = _letters.Item1[i].ToString();
 
-            _mIsLowerCase = true;
+            _isLowerCase = true;
         }
 
-        private Int32 _mActiveIndex = -1;
+        private Int32 _activeIndex = -1;
 
         public void SelectNext()
         {
-            var count = _mTextBoxes.Length;
-            var index = (_mActiveIndex + 1) % count;
+            var count = _textBoxes.Length;
+            var index = (_activeIndex + 1) % count;
             SelectTextBox(index);
         }
 
         private void SelectTextBox(int index)
         {
-            _mActiveIndex = index;
+            _activeIndex = index;
 
-            var txtBox = _mTextBoxes[_mActiveIndex];
+            var txtBox = _textBoxes[_activeIndex];
             txtBox.Focus();
             SetAnimation(txtBox);
         }
 
         public void SelectPrevious()
         {
-            var count = _mTextBoxes.Length;
-            var index = (count + _mActiveIndex - 1) % count;
+            var count = _textBoxes.Length;
+            var index = (count + _activeIndex - 1) % count;
             SelectTextBox(index);
         }
-
-        private void TextBox_TextChanged(Object sender, TextChangedEventArgs e)
-        {
-        }
-
-        private void OnWindowDeactivated(Object sender, EventArgs e)
-        {
-            this.Visibility = System.Windows.Visibility.Hidden;
-        }
-
+        
         private void OnMouseUp(Object sender, MouseButtonEventArgs e)
         {
             var textBox = e.Source as TextBox;
             if (textBox == null) return;
-            _mActiveIndex = Array.IndexOf(_mTextBoxes, textBox);
+            _activeIndex = Array.IndexOf(_textBoxes, textBox);
             textBox.Focus();
             Handler.HandleMouseUp();
         }
