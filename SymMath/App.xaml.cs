@@ -14,17 +14,12 @@ namespace SymMath
 {
     public partial class App : Application
     {
-        private bool _setupComplete;
+        bool _setupComplete;
 
-        protected override void OnLoadCompleted(NavigationEventArgs e)
-        {
-            base.OnLoadCompleted(e);
-        }
-
-        private void DoSetup()
+        void DoSetup()
         {
             var presenter = new MvxSimpleWpfViewPresenter(MainWindow);
-            
+
             var setup = new Setup(Dispatcher, presenter);
             setup.Initialize();
 
@@ -34,7 +29,7 @@ namespace SymMath
             _setupComplete = true;
         }
 
-        protected override void OnActivated(EventArgs e)
+        protected override void OnActivated(System.EventArgs e)
         {
             if (!_setupComplete)
                 DoSetup();
@@ -42,5 +37,4 @@ namespace SymMath
             base.OnActivated(e);
         }
     }
-
 }

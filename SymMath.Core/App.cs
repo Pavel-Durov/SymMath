@@ -12,6 +12,14 @@ namespace SymMath.Core
 {
     public class App : MvxApplication
     {
+        public App()
+        {
+            // set the start object
+            //var startApplicationObject = new LetterSelectionViewModel();
+
+            //RegisterAppStart<LetterSelectionViewModel>();
+        }
+
         public override void Initialize()
         {
             CreatableTypes()
@@ -19,7 +27,7 @@ namespace SymMath.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<MainWindowViewModel>();
+            RegisterAppStart<LetterSelectionViewModel>();
         }
     }
 }

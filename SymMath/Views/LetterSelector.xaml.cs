@@ -169,7 +169,7 @@ namespace SymMath
 
             _activeIndex = Array.IndexOf(_textBoxes, textBox);
             textBox.Focus();
-            Handler.HandleMouseUp();
+            NativeInputHandler.HandleMouseUp();
         }
     }
 }

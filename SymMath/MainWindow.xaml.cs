@@ -12,18 +12,18 @@ namespace SymMath
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : MvxWpfView
+    public partial class MainWindow : Window
     {
         public static LetterSelector Selector;
 
         public MainWindow()
         {
-            this.Visibility = System.Windows.Visibility.Hidden;
+            //this.Visibility = System.Windows.Visibility.Hidden;
             
             InitializeComponent();
 
             // Hook keyboard events.
-            Handler.ValidateCAPSLOCKState();
+            NativeInputHandler.ValidateCAPSLOCKState();
 
             LetterMappings.InitializeWindowsAndBindings();
 
@@ -41,8 +41,8 @@ namespace SymMath
             LowLevelListener.HookedKeys.Add(Key.RightShift);
             LowLevelListener.Register();
 
-            LowLevelListener.KeyDown += new LowLevelListener.KeyHookEventHandler(e => Handler.HandleKeyPress(true, e));
-            LowLevelListener.KeyUp += new LowLevelListener.KeyHookEventHandler(e => Handler.HandleKeyPress(false, e));
+            LowLevelListener.KeyDown += new LowLevelListener.KeyHookEventHandler(e => NativeInputHandler.HandleKeyPress(true, e));
+            LowLevelListener.KeyUp += new LowLevelListener.KeyHookEventHandler(e => NativeInputHandler.HandleKeyPress(false, e));
 
             try
             {

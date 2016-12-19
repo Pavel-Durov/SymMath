@@ -61,6 +61,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -80,8 +82,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Parsers\LogicToPhysicalKeysConverter.cs" />
+    <Compile Include="Provider\KeyboardListenerProvider.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="Views\LetterSelectionView.xaml.cs">
+      <DependentUpon>LetterSelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LetterSelector.xaml.cs">
       <DependentUpon>LetterSelector.xaml</DependentUpon>
     </Compile>
@@ -96,12 +102,16 @@
     <Compile Include="Consts\CharacterConst.cs" />
     <Compile Include="Consts\LetterMappings.cs" />
     <Compile Include="Keyboard\Caret.cs" />
-    <Compile Include="Keyboard\Handler.cs" />
+    <Compile Include="Keyboard\NativeInputHandler.cs" />
     <Compile Include="Keyboard\LowLevelListener.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\LetterSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LetterSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

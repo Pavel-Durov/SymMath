@@ -68,8 +68,10 @@
     <Compile Include="Consts\CharacterConst.cs" />
     <Compile Include="Intefaces\ILetterSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\IKeyboardListenerProvider.cs" />
     <Compile Include="Services\CharectersService.cs" />
     <Compile Include="Services\LruKeyService.cs" />
+    <Compile Include="ViewModels\LetterSelectionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

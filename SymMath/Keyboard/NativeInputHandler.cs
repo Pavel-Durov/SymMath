@@ -14,12 +14,12 @@ using System.Windows.Input;
 
 namespace SymMath.Keyboard
 {
-    internal static class Handler
+    internal static class NativeInputHandler
     {
         #region Unmanaged
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct INPUT
+        internal struct INPUT
         {
             internal uint type;
             internal InputUnion U;
@@ -30,7 +30,7 @@ namespace SymMath.Keyboard
         }
 
         [StructLayout(LayoutKind.Explicit)]
-        private struct InputUnion
+        internal struct InputUnion
         {
             [FieldOffset(0)]
             internal MOUSEINPUT mi;
@@ -41,7 +41,7 @@ namespace SymMath.Keyboard
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct MOUSEINPUT
+        internal struct MOUSEINPUT
         {
             internal int dx;
             internal int dy;
@@ -52,7 +52,7 @@ namespace SymMath.Keyboard
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct HARDWAREINPUT
+        internal struct HARDWAREINPUT
         {
             internal int uMsg;
             internal short wParamL;
@@ -60,7 +60,7 @@ namespace SymMath.Keyboard
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct KEYBDINPUT
+        internal struct KEYBDINPUT
         {
             internal VirtualKeyShort wVk;
             internal short wScan; // was ScanCodeShort
@@ -70,7 +70,7 @@ namespace SymMath.Keyboard
         }
 
         [Flags]
-        private enum KEYEVENTF : uint
+        internal enum KEYEVENTF : uint
         {
             EXTENDEDKEY = 0x0001,
             KEYUP = 0x0002,
@@ -78,11 +78,11 @@ namespace SymMath.Keyboard
             UNICODE = 0x0004
         }
 
-        private const Int32 INPUT_MOUSE = 0;
-        private const Int32 INPUT_KEYBOARD = 1;
-        private const Int32 INPUT_HARDWARE = 2;
+        internal const Int32 INPUT_MOUSE = 0;
+        internal const Int32 INPUT_KEYBOARD = 1;
+        internal const Int32 INPUT_HARDWARE = 2;
 
-        private enum VirtualKeyShort : short
+        internal enum VirtualKeyShort : short
         {
             ///<summary>
             ///Left mouse button
@@ -953,10 +953,10 @@ namespace SymMath.Keyboard
         }
 
         [DllImport("user32.dll")]
-        private static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, Int32 cbSize);
+        internal static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, Int32 cbSize);
 
         [DllImport("user32.dll", EntryPoint = "GetMessageExtraInfo", SetLastError = true)]
-        private static extern UIntPtr GetMessageExtraInfo();
+        internal static extern UIntPtr GetMessageExtraInfo();
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetFocus();
@@ -965,13 +965,13 @@ namespace SymMath.Keyboard
         private static extern IntPtr SetFocus(IntPtr handle);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
+        internal static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
-        private static extern Boolean SetForegroundWindow(IntPtr handle);
+        internal static extern Boolean SetForegroundWindow(IntPtr handle);
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct MONITORINFO
+        internal struct MONITORINFO
         {
             public int cbSize;
             public RECT rcMonitor;
@@ -979,16 +979,16 @@ namespace SymMath.Keyboard
             public uint dwFlags;
         }
 
-        private const Int32 MONITOR_DEFAULTTONEAREST = 0x00000002;
+        internal const Int32 MONITOR_DEFAULTTONEAREST = 0x00000002;
 
         [DllImport("user32.dll")]
-        private static extern IntPtr MonitorFromPoint(Point p, Int32 flags);
+        internal static extern IntPtr MonitorFromPoint(Point p, Int32 flags);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr MonitorFromWindow(IntPtr window, Int32 flags);
+        internal static extern IntPtr MonitorFromWindow(IntPtr window, Int32 flags);
 
         [DllImport("user32.dll")]
-        static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+        internal static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
 
         [DllImport("USER32.dll")]
         static extern short GetKeyState(VirtualKeyShort nVirtKey);
