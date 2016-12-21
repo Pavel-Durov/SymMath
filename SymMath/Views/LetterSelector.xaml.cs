@@ -72,8 +72,8 @@ namespace SymMath
             this.Loaded += (_, __) => SelectNext();
         }
 
-        TextBox _prevaAimatedTextBox;
         Storyboard _currentStoryboard;
+        TextBox _prevSelectedTextBox;
 
         private void SetAnimation(TextBox sender)
         {
@@ -84,8 +84,6 @@ namespace SymMath
                 {
                     _currentStoryboard.Stop();
                 }
-
-                _prevaAimatedTextBox = focusedTextBox;
 
                 var fade = new DoubleAnimation()
                 {
@@ -106,7 +104,7 @@ namespace SymMath
 
         public readonly Key Key;
 
-        public char SelectedLetter => _textBoxes[_activeIndex].Text[0];
+        public char SelectedLetter =>  _textBoxes[_activeIndex].Text[0];
 
         private Boolean _isLowerCase = true;
 
@@ -130,7 +128,7 @@ namespace SymMath
             _isLowerCase = true;
         }
 
-        private Int32 _activeIndex = -1;
+        private int _activeIndex = -1;
 
         public void SelectNext()
         {
@@ -143,9 +141,9 @@ namespace SymMath
         {
             _activeIndex = index;
 
-            var txtBox = _textBoxes[_activeIndex];
-            txtBox.Focus();
-            SetAnimation(txtBox);
+            _prevSelectedTextBox = _textBoxes[_activeIndex];
+            _prevSelectedTextBox.Focus();
+            SetAnimation(_prevSelectedTextBox);
         }
 
         public void SelectPrevious()
@@ -154,7 +152,7 @@ namespace SymMath
             var index = (count + _activeIndex - 1) % count;
             SelectTextBox(index);
         }
-        
+
         private void OnMouseUp(Object sender, MouseButtonEventArgs e)
         {
             var textBox = e.Source as TextBox;

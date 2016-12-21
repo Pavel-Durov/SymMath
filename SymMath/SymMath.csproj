@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Parsers\LogicToPhysicalKeysConverter.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Views\LetterSelector.xaml.cs">
       <DependentUpon>LetterSelector.xaml</DependentUpon>
@@ -110,12 +109,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\SymMath.Core\SymMath.Core.csproj">
-      <Project>{fdb4719a-a816-4696-98ef-84ae5b0a66de}</Project>
-      <Name>SymMath.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

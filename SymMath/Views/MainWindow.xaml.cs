@@ -1,6 +1,5 @@
-﻿using SymMath.Parsers;
+﻿
 using SymMath.Keyboard;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -27,8 +26,8 @@ namespace SymMath
             LetterMappings.InitializeWindowsAndBindings();
 
             // Register keys.
-            foreach (var letter in Core.Const.LetterMappings.KeysMap.Keys)
-                LowLevelListener.HookedKeys.Add(LogicToPhysicalKeysConverter.Convert(letter));
+            foreach (var letter in LetterMappings.KeysMap.Keys)
+                LowLevelListener.HookedKeys.Add(letter);
 
             // Hook left, right arrow keys to move the selector.
             LowLevelListener.HookedKeys.Add(Key.Left);
