@@ -1172,7 +1172,7 @@ namespace SymMath.Keyboard
                     return true;
 
                 //_ShowPopup(e.ModifierAnyShift, position.X / 2 , 0);
-                _ShowPopup(e.ModifierAnyShift, left: 100, top: 15);
+                _ShowPopup(e.ModifierAnyShift, left: 100, top: 50);
                 return true;
             }
 

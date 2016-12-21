@@ -41,37 +41,10 @@ namespace SymMath.Keyboard
       #region Interop
 
       [DllImport("user32.dll")]
-      private static extern Boolean GetCaretPos(out Point point);
-
-      [DllImport("user32.dll")]
-      private static extern Boolean CreateCaret(IntPtr window, IntPtr bitmap, Int32 width, Int32 height);
-
-      [DllImport("user32.dll")]
-      private static extern Boolean DestroyCaret();
-
-      [DllImport("user32.dll")]
-      private static extern Boolean SetCaretPos(Int32 x, Int32 y);
-
-      [DllImport("user32.dll")]
-      private static extern Boolean ShowCaret(IntPtr window);
-
-      [DllImport("user32.dll")]
       static extern Boolean ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
       [DllImport("user32.dll")]
       private static extern Boolean GetGUIThreadInfo(UInt32 idThread, out GUITHREADINFO lpgui);
-
-      [DllImport("user32.dll")]
-      static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
-
-      [DllImport("kernel32.dll")]
-      static extern uint GetCurrentThreadId();
-
-      [DllImport("user32.dll")]
-      static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
-
-      [DllImport("user32.dll")]
-      static extern IntPtr GetFocus();
 
       #endregion
 
