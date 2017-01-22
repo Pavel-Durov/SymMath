@@ -9,6 +9,6 @@ A tool for quick math symbols insertion
 ![screenshot](screencast.gif)
 
 
-(symWin_km.png)
+![screenshot](symWin_km.png)
 
 Downloads: https://github.com/Pavel-Durov/SymMath/releases/tag/0.1.0
