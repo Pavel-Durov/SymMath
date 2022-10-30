@@ -7,7 +7,7 @@ Download (x86/x64 Windows): https://github.com/Pavel-Durov/SymMath/releases/tag/
 ![screenshot](screencast.gif)
 
 # SymMath
-A tool for quick math symbols insertion. Tested with Microsoft Word, but can be used in any text editor - as long as you got the right fints installed :)   
+A tool for quick math symbols insertion. Tested with Microsoft Word, but can be used in any text editor - as long as you got the right fonts installed :)   
 
 
 ![screenshot](symWin_km.png)
